@@ -29,8 +29,8 @@ public class Student {
 
   private String name;
 
-  @ManyToMany(mappedBy = "enrolledStudents", fetch = FetchType.LAZY)
   @JsonIgnore
+  @ManyToMany(mappedBy = "enrolledStudents", fetch = FetchType.LAZY)
   private List<Subject> subjects;
 
 }

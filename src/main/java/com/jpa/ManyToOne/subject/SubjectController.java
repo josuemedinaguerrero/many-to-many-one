@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.jpa.ManyToOne.student.Student;
 import com.jpa.ManyToOne.student.StudentRepository;
+import com.jpa.ManyToOne.teacher.Teacher;
+import com.jpa.ManyToOne.teacher.TeacherRepository;
 
 @RestController
 @RequestMapping("/subjects")
@@ -23,6 +25,9 @@ public class SubjectController {
   
   @Autowired
   private StudentRepository studentRepository;
+  
+  @Autowired
+  private TeacherRepository teacherRepository;
   
   @GetMapping
   public List<Subject> getSubjects() {
@@ -50,6 +55,15 @@ public class SubjectController {
     students.add(student);
 
     subject.setEnrolledStudents(students);
+    return subjectRepository.save(subject);
+  }
+ 
+  @PutMapping("/{subjectId}/teacher/{teacherId}")
+  public Subject assignTeacherToSubject(@PathVariable Long subjectId, @PathVariable Long teacherId) {
+    Subject subject = subjectRepository.findById(subjectId).get();
+    Teacher teacher = teacherRepository.findById(teacherId).get();
+
+    subject.setTeacher(teacher);
     return subjectRepository.save(subject);
   }
 

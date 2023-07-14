@@ -3,6 +3,7 @@ package com.jpa.ManyToOne.subject;
 import java.util.List;
 
 import com.jpa.ManyToOne.student.Student;
+import com.jpa.ManyToOne.teacher.Teacher;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -12,6 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,5 +39,9 @@ public class Subject {
       inverseJoinColumns =  @JoinColumn(name = "student_id", referencedColumnName = "id")
   )
   private List<Student> enrolledStudents;
+
+  @ManyToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "teacher_id", referencedColumnName = "id")
+  private Teacher teacher;
 
 }
